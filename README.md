@@ -13,5 +13,7 @@
 | RSNA           | [link](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/overview) |
 | Histopathology | [link](data/histopathology/)                        |
 
+## Our Proposed Benchmark 
+To downlload: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
 
 ![](imgs/table.png)
