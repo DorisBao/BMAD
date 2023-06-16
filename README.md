@@ -1,7 +1,10 @@
 # BMAD: Benchmarks for Medical Anomaly Detection
 Jinan Bao, Hanshi Sun, Hanqiu Deng, Yinsheng He, Zhaoxiang Zhang, Xingyu Li†
+
 († Corresponding authors)
-Our paper is summitted arVix.  
+
+Our paper is summitted arVix. 
+
 ![](imgs/F1.png)
 
 ## Overview
