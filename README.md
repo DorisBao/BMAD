@@ -19,13 +19,18 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 | Retinal OCT Anomaly Detection and Localization Benchmark | [RESC](https://github.com/CharlesKangZhou/P_Net_Anomaly_Detection) + [OCT2017](https://www.kaggle.com/datasets/paultimothymooney/kermany2018) |
 | Chest X-ray Anomaly Detection Benchmark                  | [RSNA dataset](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/overview) |
 | Digital Histopathology Anomaly Detection Benchmark       | [Camelyon16 Dataset](https://camelyon17.grand-challenge.org/Data/)                        |
-
+ 
 
 | Support AD algorithm and the original implementation        | Details                                               |
 | -------------- | ------------------------------------------------------------ |
 | [Anomalib](https://github.com/openvinotoolkit/anomalib) |We used their support for industrial AD work: [RD4AD](https://arxiv.org/pdf/2201.10703v2.pdf),[DRAEM](https://arxiv.org/pdf/2108.07610v2.pdf),[GANomaly](https://arxiv.org/abs/1805.06725),[PaDiM](https://arxiv.org/pdf/2011.08785.pdf),[PatchCore](https://arxiv.org/pdf/2106.08265.pdf),[STFPM](https://arxiv.org/pdf/2103.04257.pdf) and [CFA](https://arxiv.org/abs/2206.04325)|
-
- 
+| DeepSVDD | ------------------------------------------------------------ |
+| f-AnoGAN | ------------------------------------------------------------ |
+| MKD      | ------------------------------------------------------------ |
+| Cutpaste | ------------------------------------------------------------ |
+| CS-Flow | ------------------------------------------------------------ |
+| UTRAD | ------------------------------------------------------------ |
+| CFLOW | ------------------------------------------------------------ |
 ## Our BMAD datasets
 To download the reorganization: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
 
