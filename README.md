@@ -28,6 +28,7 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
  
 ## Our BMAD datasets
 To download the reorganization: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
+
 To download all trained checkpoints: 
 
 ## Intoruction for medical domains
