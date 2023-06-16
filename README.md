@@ -25,7 +25,6 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 | -------------- | ------------------------------------------------------------ |
 | Anomalib       | [link](https://github.com/openvinotoolkit/anomalib) |
 
-Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
  
 ## Our BMAD datasets
 To download the reorganization: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
@@ -59,3 +58,4 @@ lr: 0.0001
 ...
 ```
 ### Thanks
+Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
