@@ -19,7 +19,7 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 | RESC           | [link](https://github.com/CharlesKangZhou/P_Net_Anomaly_Detection) |
 | OCT2017        | [link](https://www.kaggle.com/datasets/paultimothymooney/kermany2018) |
 | RSNA           | [link](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/overview) |
-| Histopathology | [link](https://camelyon17.grand-challenge.org/Data/)                        |
+| Camelyon16 Dataset | [link](https://camelyon17.grand-challenge.org/Data/)                        |
 
 | Support AD algorithm        | Access Link                                                |
 | -------------- | ------------------------------------------------------------ |
