@@ -20,9 +20,10 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 | Chest X-ray Anomaly Detection Benchmark                  | [RSNA dataset](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/overview) |
 | Digital Histopathology Anomaly Detection Benchmark       | [Camelyon16 Dataset](https://camelyon17.grand-challenge.org/Data/)                        |
 
-| Support AD algorithm        | Access Link                                                |
+
+| Support AD algorithm         | Details                                               |
 | -------------- | ------------------------------------------------------------ |
-| Anomalib       | [link](https://github.com/openvinotoolkit/anomalib) |
+| [Anomalib](https://github.com/openvinotoolkit/anomalib) |We used their support for industrial AD work, [RD4AD](https://arxiv.org/pdf/2201.10703v2.pdf),[DRAEM](https://arxiv.org/pdf/2108.07610v2.pdf),[GANomaly](https://arxiv.org/abs/1805.06725),[PaDiM](https://arxiv.org/pdf/2011.08785.pdf),[PatchCore](https://arxiv.org/pdf/2106.08265.pdf),[STFPM](https://arxiv.org/pdf/2103.04257.pdf) and [CFA](https://arxiv.org/abs/2206.04325)|
 
  
 ## Our BMAD datasets
