@@ -123,7 +123,7 @@ BTCV is introduced for multi-organ segmentation. It consists of 50 abdominal com
 **Access and License:** The original BTCV dataset can be accessed from `RawData.zip` at [https://www.synapse.org/#!Synapse:syn3193805/wiki/217753](https://www.synapse.org/\#!Synapse:syn3193805/wiki/217753).
 Dataset posted on Synapse is subject to the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
-![](imgs/liver-BENCHMARK.png)
+![](imgs/LIVER-BENCHMARK.png)
 
 ### LiTS Dataset
 LiTS is proposed for liver tumor segmentation. It originally comprises 131 abdominal CT scans, accompanied by a ground truth label for the liver and liver tumors. The original LiTS is stored in the `nii.gz` format with a volume size of 512x512x432. 
@@ -135,7 +135,7 @@ RESC (Retinal Edema Segmentation Challenge) dataset specifically focuses on the 
 
 **Access and License:** The original RESC dataset can be downloaded from the P-Net github page at [https://github.com/CharlesKangZhou/P_Net_Anomaly_Detection](https://github.com/CharlesKangZhou/P_Net_Anomaly_Detection). As indicated on the webpage, the dataset can be only used for the research community.
 
-![](imgs/retinal-oct.png)
+![](imgs/Retinal-oct.png)
 
 ### OCT2017 dataset
 OCT2017 is a large-scale dataset initially designed for classification tasks. It consists of retinal OCT images categorized into three types of anomalies: Choroidal Neovascularization (CNV), Diabetic Macular Edema (DME), and Drusen Deposits (DRUSEN). The images are continuous slices with a size of 512*496. 
