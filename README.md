@@ -34,7 +34,9 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 ## Our BMAD datasets
 To download the reorganization: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
 
-Our dataset includes image-level only and image-level&pixel-level. Take the camelyon16 dataset(image level) as an example, the reorganization is as follows:
+Our dataset includes image-level only and image-level&pixel-level. 
+
+Take the camelyon16 dataset(image level) as an example, the reorganization is as follows:
 
 ```text
 camelyon16
