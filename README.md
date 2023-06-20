@@ -115,7 +115,7 @@ You can test the model by running `main.py` with args. For example, if you want 
 ```bash
 python main.py --mode test --data liver --model padim --weight results/padim/liver/run/weights/model.ckpt
 ```
-## Reference 
+## References 
 
 ### Original Resource Access links
 Brain MRI Anomaly Detection and Localization Benchmark : [BraTS2021 Dataset](http://braintumorsegmentation.org/)  
@@ -130,6 +130,7 @@ Digital Histopathology Anomaly Detection Benchmark : [Camelyon16 Dataset](https:
 
 ### Support alogorithms
 [RD4AD](https://arxiv.org/abs/2201.10703),[PatchCore](https://arxiv.org/abs/2106.08265),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html),[MKD](https://arxiv.org/abs/2011.11108),[PaDIM](https://arxiv.org/abs/2011.08785),[CFLOW](https://arxiv.org/abs/2107.12571),[CS-Flow](https://arxiv.org/abs/2110.02855),[CutPaste](https://openaccess.thecvf.com/content/CVPR2021/papers/Li_CutPaste_Self-Supervised_Learning_for_Anomaly_Detection_and_Localization_CVPR_2021_paper.pdf) [GANomaly](https://arxiv.org/abs/1805.06725),[UTRAD](https://www.sciencedirect.com/science/article/abs/pii/S0893608021004810),[STFPM](https://arxiv.org/abs/2111.15376),[f-AnoGAN](https://www.sciencedirect.com/science/article/abs/pii/S1361841518302640),[CFA](https://arxiv.org/abs/2206.04325)
+
 ## Thanks
 Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
 
