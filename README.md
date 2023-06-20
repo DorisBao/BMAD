@@ -91,7 +91,7 @@ Brain
             ├── ...
 ```
 ### Our codebase
-We support 14 algorithms in our BMAD and the results are shown in Table 2. Our trained checkpoints can be downloaded from [Google drive](https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing) 
+We support 14 algorithms in our BMAD and the results are shown in Table 2. Our trained checkpoints can be downloaded from [Google drive](https://drive.google.com/drive/folders/105s6IzMO-Y5P_a_YkQ_dzL0YgbmGPhd8?usp=sharing) 
 
 ![](imgs/table3.png)
 
