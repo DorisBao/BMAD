@@ -117,7 +117,7 @@ python main.py --mode test --data liver --model padim --weight results/padim/liv
 ```
 ## References 
 
-### Original Resource Access links
+### Original resource access links
 Brain MRI Anomaly Detection and Localization Benchmark : [BraTS2021 Dataset](http://braintumorsegmentation.org/)  
 
 Liver CT Anomaly Detection and Localization Benchmark :  [BTCV Dtaset](https://www.synapse.org/#!Synapse:syn3193805/wiki/217753) + [LiTS Dataset](https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation)    
