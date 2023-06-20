@@ -109,6 +109,36 @@ Brain
 
 To download all trained checkpoints: https://drive.google.com/drive/folders/105s6IzMO-Y5P_a_YkQ_dzL0YgbmGPhd8?usp=sharing
 
+
+![](imgs/his-benchmark.png)
+
+## How to use our work
+### Train
+You can train the model by running `main.py` with args. For example, if you want to train a RD4AD model on RESC dataset, you can run the following command:
+
+```bash
+python main.py --mode train --data RESC --model RD4AD
+```
+
+### Test
+You can test the model by running `main.py` with args. For example, if you want to test a PaDiM model on liver dataset with weight file `results/padim/liver/run/weights/model.ckpt`, you can run the following command:
+
+```bash
+python main.py --mode test --data liver --model padim --weight results/padim/liver/run/weights/model.ckpt
+```
+
+### Change the hyperparameters
+You can change the hyperparameters by modifying the config file in `config/` folder. Take the `cflow` model as an example, you can change the hyperparameters in `config/camelyon_cflow.yaml` file for cflow model on the camelyon dataset.
+
+```yaml
+...
+coupling_blocks: 8
+clamp_alpha: 1.9
+fiber_batch_size: 64
+lr: 0.0001
+...
+```
+
 ## Intoruction for medical domains
 
 ### BraTS2021
@@ -156,33 +186,5 @@ The Camelyon16 dataset was initially utilized in the Camelyon16 Grand Challenge 
 **Access and Licence:** The original Camelyon16 dataset can be found at [https://camelyon17.grand-challenge.org/Data/](https://camelyon17.grand-challenge.org/Data/).
 It is under a license of Creative Commons Zero 1.0 Universal Public Domain Dedication([CC0](https://registry.opendata.aws/camelyon/)).
 
-![](imgs/his-benchmark.png)
-
-## How to use our work
-### Train
-You can train the model by running `main.py` with args. For example, if you want to train a RD4AD model on RESC dataset, you can run the following command:
-
-```bash
-python main.py --mode train --data RESC --model RD4AD
-```
-
-### Test
-You can test the model by running `main.py` with args. For example, if you want to test a PaDiM model on liver dataset with weight file `results/padim/liver/run/weights/model.ckpt`, you can run the following command:
-
-```bash
-python main.py --mode test --data liver --model padim --weight results/padim/liver/run/weights/model.ckpt
-```
-
-### Change the hyperparameters
-You can change the hyperparameters by modifying the config file in `config/` folder. Take the `cflow` model as an example, you can change the hyperparameters in `config/camelyon_cflow.yaml` file for cflow model on the camelyon dataset.
-
-```yaml
-...
-coupling_blocks: 8
-clamp_alpha: 1.9
-fiber_batch_size: 64
-lr: 0.0001
-...
-```
-### Thanks
+## Thanks
 Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
