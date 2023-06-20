@@ -119,9 +119,13 @@ python main.py --mode test --data liver --model padim --weight results/padim/liv
 
 ### Original Resource Access links
 Brain MRI Anomaly Detection and Localization Benchmark : [BraTS2021 Dataset](http://braintumorsegmentation.org/)  
+
 Liver CT Anomaly Detection and Localization Benchmark :  [BTCV Dtaset](https://www.synapse.org/#!Synapse:syn3193805/wiki/217753) + [LiTS Dataset](https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation)    
+
 Retinal OCT Anomaly Detection and Localization Benchmark : [RESC](https://github.com/CharlesKangZhou/P_Net_Anomaly_Detection) + [OCT2017](https://www.kaggle.com/datasets/paultimothymooney/kermany2018) 
+
 Chest X-ray Anomaly Detection Benchmark : [RSNA dataset](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/overview)  
+
 Digital Histopathology Anomaly Detection Benchmark : [Camelyon16 Dataset](https://camelyon17.grand-challenge.org/Data/)      
 
 ### Support alogorithms
