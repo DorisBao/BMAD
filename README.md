@@ -129,7 +129,7 @@ Chest X-ray Anomaly Detection Benchmark : [RSNA dataset](https://www.kaggle.com/
 Digital Histopathology Anomaly Detection Benchmark : [Camelyon16 Dataset](https://camelyon17.grand-challenge.org/Data/)      
 
 ### Support alogorithms
-
+[RD4AD](https://arxiv.org/abs/2201.10703),[PatchCore](https://arxiv.org/abs/2106.08265),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html),[MKD](https://arxiv.org/abs/2011.11108),[PaDIM](https://arxiv.org/abs/2011.08785),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html)    
 ## Thanks
 Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
 
