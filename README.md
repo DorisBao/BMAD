@@ -12,17 +12,16 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 ## BMAD
 ### Our datasets
 
-BMAD includes six medical datasets from five different domains for medical anomaly detection. Within these datasets, three supports pixel-level evaluation of anomaly detection, while the remaining three is for sample-level assessment only. We summarize these benchmarks in Table1. Note, the validation set is specifically designed for model hyper-parameter tuning and training strategy selection, while the test set should be remained untouched until the final evaluation stage.
-
-![](imgs/Table2.png)
+BMAD includes six medical datasets from five different domains for medical anomaly detection as summerized in Table 1. Within these datasets, three supports pixel-level evaluation of anomaly detection, while the remaining three is for sample-level assessment only. Note, the validation set is specifically designed for model hyper-parameter tuning and training strategy selection, while the test set should be remained untouched until the final evaluation stage. 
 
 To download the our datasets: https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
 
+![](imgs/Table2.png)
+
 ![](imgs/whole-vision.png)
 
-Our dataset includes image-level only and image-level&pixel-level. 
 
-Take the Histopathology dataset(image level) as an example, the structure is as follows:
+Take the Histopathology dataset (anomaly detection) as an example, the structure is as follows:
 
 ```text
 camelyon16
@@ -52,7 +51,7 @@ camelyon16
         ├── ...
 ```
 
-Take the Brain dataset(image&pixel level) as an example, the structure is as follows:
+Take the Brain dataset (anomaly detection and localization) as an example, the structure is as follows:
 
 ```text
 Brain
@@ -73,7 +72,7 @@ Brain
             ├── 00124_60.png
             ├── 00124_70.png
             ├── ...
-        ├── label
+        ├── anomaly_mask
             ├── 00124_60.png
             ├── 00124_70.png
             ├── ...
@@ -88,7 +87,7 @@ Brain
             ├── 00002_60.png
             ├── 00002_68.png
             ├── ...
-        ├── label
+        ├── anomaly_mask
             ├── 00002_60.png
             ├── 00002_68.png
             ├── ...
