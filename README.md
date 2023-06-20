@@ -104,7 +104,7 @@ To download all trained checkpoints: https://drive.google.com/drive/folders/105s
 ![](imgs/chest-benchmark.png)
 
 #### HISTOPATHOLOGY
-![](imgs/his.png)
+![](imgs/his-benchmark.png)
 
 
 
