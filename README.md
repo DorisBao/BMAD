@@ -17,7 +17,7 @@ To download the our datasets: https://drive.google.com/drive/folders/1La5H_3tqWi
 
 Our dataset includes image-level only and image-level&pixel-level. 
 
-Take the camelyon16 dataset(image level) as an example, the reorganization is as follows:
+Take the Histopathology dataset(image level) as an example, the reorganization is as follows:
 
 ```text
 camelyon16
@@ -47,7 +47,7 @@ camelyon16
         ├── ...
 ```
 
-Take the BraTs2021 dataset(image&pixel level) as an example, the reorganization is as follows:
+Take the Brain dataset(image&pixel level) as an example, the reorganization is as follows:
 
 ```text
 Brain
