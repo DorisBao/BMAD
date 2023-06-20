@@ -94,7 +94,7 @@ Brain
 ```
 
 ### Our benchmarks
-
+We support 14 algorithms in our BMAD and the results are shown in Table 2.
 
 ![](imgs/table3.png)
 
