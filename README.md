@@ -90,23 +90,8 @@ Brain
 To download all trained checkpoints: https://drive.google.com/drive/folders/105s6IzMO-Y5P_a_YkQ_dzL0YgbmGPhd8?usp=sharing
 
 ### Visualization of our datasets
-#### Brain
-![](imgs/Brain-BENCHMARK.png)
 
-#### Liver
-
-![](imgs/LIVER-BENCHMARK.png)
-
-#### OCT
-![](imgs/Retinal-oct.png)
-
-#### CHEST dataset
-![](imgs/chest-benchmark.png)
-
-#### HISTOPATHOLOGY
-![](imgs/his-benchmark.png)
-
-
+![](imgs/whole-vision.png)
 
 ### Our codebase
 #### Train
