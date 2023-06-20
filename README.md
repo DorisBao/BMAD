@@ -107,7 +107,7 @@ Brain
             ├── ...
 ```
 
-To download all trained checkpoints: 
+To download all trained checkpoints: https://drive.google.com/drive/folders/105s6IzMO-Y5P_a_YkQ_dzL0YgbmGPhd8?usp=sharing
 
 ## Intoruction for medical domains
 
