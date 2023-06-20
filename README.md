@@ -129,7 +129,7 @@ Chest X-ray Anomaly Detection Benchmark : [RSNA dataset](https://www.kaggle.com/
 Digital Histopathology Anomaly Detection Benchmark : [Camelyon16 Dataset](https://camelyon17.grand-challenge.org/Data/)      
 
 ### Support alogorithms
-[RD4AD](https://arxiv.org/abs/2201.10703),[PatchCore](https://arxiv.org/abs/2106.08265),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html),[MKD](https://arxiv.org/abs/2011.11108),[PaDIM](https://arxiv.org/abs/2011.08785),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html)    
+[RD4AD](https://arxiv.org/abs/2201.10703),[PatchCore](https://arxiv.org/abs/2106.08265),[DRAEM](https://arxiv.org/abs/2108.07610),[DeepSVDD](https://proceedings.mlr.press/v80/ruff18a.html),[MKD](https://arxiv.org/abs/2011.11108),[PaDIM](https://arxiv.org/abs/2011.08785),[CFLOW](https://arxiv.org/abs/2107.12571),[CS-Flow](https://arxiv.org/abs/2110.02855),[CutPaste](https://openaccess.thecvf.com/content/CVPR2021/papers/Li_CutPaste_Self-Supervised_Learning_for_Anomaly_Detection_and_Localization_CVPR_2021_paper.pdf) 
 ## Thanks
 Our orgianl datasets and support alogorithms are come from the above resources, thanks their splendid works!
 
