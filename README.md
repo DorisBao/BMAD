@@ -13,7 +13,7 @@ In medical imaging, AD is especially vital for detecting and diagnosing anomalie
 ## BMAD
 ### Our datasets
 
-BMAD includes six medical datasets from five different domains for medical anomaly detection as summerized in Table 1. Within these datasets, three supports pixel-level evaluation of anomaly detection, while the remaining three is for sample-level assessment only. Note, the validation set is specifically designed for model hyper-parameter tuning and training strategy selection, while the test set should be remained untouched until the final evaluation stage. One can download the our datasets from [Google drive](https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing
+BMAD includes six medical datasets from five different domains for medical anomaly detection as summerized in Table 1. Within these datasets, three supports pixel-level evaluation of anomaly detection, while the remaining three is for sample-level assessment only. Note, the validation set is specifically designed for model hyper-parameter tuning and training strategy selection, while the test set should be remained untouched until the final evaluation stage. One can download the our datasets from [Google drive](https://drive.google.com/drive/folders/1La5H_3tqWioPmGN04DM1vdl3rbcBez62?usp=sharing .
 ) 
 ![](imgs/Table2.png)
 
