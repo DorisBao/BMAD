@@ -3,7 +3,7 @@ Jinan Bao, Hanshi Sun, Hanqiu Deng, Yinsheng He, Zhaoxiang Zhang, Xingyu Li†
 
 († Corresponding authors)
 
-Our work can be access at [arVix](https://arxiv.org/abs/2306.11876)
+Our work can be access at [arVix](https://arxiv.org/abs/2306.11876) .
 
 ![](imgs/F1.png)
 
