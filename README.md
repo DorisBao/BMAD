@@ -1,8 +1,6 @@
 # BMAD: Benchmarks for Medical Anomaly Detection
 Jinan Bao, Hanshi Sun, Hanqiu Deng, Yinsheng He, Zhaoxiang Zhang, Xingyu Li†
 
-(† Corresponding authors)
-
 Our paper has been submitted to the NeurIPS 2023 Datasets & Benchmarks Track and can be accessed at [arvix](https://arxiv.org/abs/2306.11876) .
 
 ![](imgs/F1.png)
