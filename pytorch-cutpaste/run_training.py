@@ -11,6 +11,7 @@ from torch import optim
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
 from torchvision import transforms
+import yaml
 
 
 from dataset import MVTecAT, Repeat
@@ -191,65 +192,73 @@ if __name__ == '__main__':
     parser.add_argument('--type', default="camelyon",
                         help='MVTec defection dataset type to train seperated by , (default: "all": train all defect types)')
 
-    parser.add_argument('--epochs', default=256, type=int,
-                        help='number of epochs to train the model , (default: 256)')
+    # parser.add_argument('--epochs', default=256, type=int,
+    #                     help='number of epochs to train the model , (default: 256)')
     
-    parser.add_argument('--model_dir', default="models",
-                        help='output folder of the models , (default: models)')
+    # parser.add_argument('--model_dir', default="models",
+    #                     help='output folder of the models , (default: models)')
     
     parser.add_argument('--no-pretrained', dest='pretrained', default=True, action='store_false',
                         help='use pretrained values to initalize ResNet18 , (default: True)')
     
-    parser.add_argument('--test_epochs', default=10, type=int,
-                        help='interval to calculate the auc during trainig, if -1 do not calculate test scores, (default: 10)')                  
+    # parser.add_argument('--test_epochs', default=10, type=int,
+    #                     help='interval to calculate the auc during trainig, if -1 do not calculate test scores, (default: 10)')                  
 
-    parser.add_argument('--freeze_resnet', default=20, type=int,
-                        help='number of epochs to freeze resnet (default: 20)')
+    # parser.add_argument('--freeze_resnet', default=20, type=int,
+    #                     help='number of epochs to freeze resnet (default: 20)')
     
-    parser.add_argument('--lr', default=0.03, type=float,
-                        help='learning rate (default: 0.03)')
+    # parser.add_argument('--lr', default=0.03, type=float,
+    #                     help='learning rate (default: 0.03)')
 
-    parser.add_argument('--optim', default="sgd",
-                        help='optimizing algorithm values:[sgd, adam] (dafault: "sgd")')
+    # parser.add_argument('--optim', default="sgd",
+    #                     help='optimizing algorithm values:[sgd, adam] (dafault: "sgd")')
 
-    parser.add_argument('--batch_size', default=64, type=int,
-                        help='batch size, real batchsize is depending on cut paste config normal cutaout has effective batchsize of 2x batchsize (dafault: "64")')   
+    # parser.add_argument('--batch_size', default=64, type=int,
+    #                     help='batch size, real batchsize is depending on cut paste config normal cutaout has effective batchsize of 2x batchsize (dafault: "64")')   
 
-    parser.add_argument('--head_layer', default=1, type=int,
-                    help='number of layers in the projection head (default: 1)')
+    # parser.add_argument('--head_layer', default=1, type=int,
+    #                 help='number of layers in the projection head (default: 1)')
     
-    parser.add_argument('--variant', default="3way", choices=['normal', 'scar', '3way', 'union'], help='cutpaste variant to use (dafault: "3way")')
+    # parser.add_argument('--variant', default="3way", choices=['normal', 'scar', '3way', 'union'], help='cutpaste variant to use (dafault: "3way")')
     
-    parser.add_argument('--cuda', default=False, type=str2bool,
-                    help='use cuda for training (default: False)')
+    # parser.add_argument('--cuda', default=False, type=str2bool,
+    #                 help='use cuda for training (default: False)')
     
-    parser.add_argument('--workers', default=8, type=int, help="number of workers to use for data loading (default:8)")
+    # parser.add_argument('--workers', default=8, type=int, help="number of workers to use for data loading (default:8)")
 
 
     args = parser.parse_args()
     print(args)
-    
+
+
+    config_path = f"config/{args.type}_cutpaste.yaml"
+    print(f"reading config {config_path}...")
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    print(config)
+
+
     variant_map = {'normal':CutPasteNormal, 'scar':CutPasteScar, '3way':CutPaste3Way, 'union':CutPasteUnion}
-    variant = variant_map[args.variant]
+    variant = variant_map[config['variant']]
     
     device = "cuda"
     print(f"using device: {device}")
     
     # create modle dir
-    Path(args.model_dir).mkdir(exist_ok=True, parents=True)
+    Path(config['model_dir']).mkdir(exist_ok=True, parents=True)
 
     data_type = args.type
     print(f"training {data_type}")
     run_training(data_type,
-                    model_dir=Path(args.model_dir),
-                    epochs=args.epochs,
-                    pretrained=args.pretrained,
-                    test_epochs=args.test_epochs,
-                    freeze_resnet=args.freeze_resnet,
-                    learninig_rate=args.lr,
-                    optim_name=args.optim,
-                    batch_size=args.batch_size,
-                    head_layer=args.head_layer,
+                    model_dir=Path(config['model_dir']),
+                    epochs=config['epochs'],
+                    pretrained=config['pretrained'],
+                    test_epochs=config['test_epochs'],
+                    freeze_resnet=config['freeze_resnet'],
+                    learninig_rate=config['lr'],
+                    optim_name=config['optim'],
+                    batch_size=config['batch_size'],
+                    head_layer=config['head_layer'],
                     device=device,
                     cutpate_type=variant,
-                    workers=args.workers)
+                    workers=config['workers'])

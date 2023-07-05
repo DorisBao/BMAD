@@ -1,0 +1,11 @@
+epochs: 256
+model_dir: pytorch-cutpaste/models
+test_epochs: 10
+freeze_resnet: 20
+lr: 0.03
+optim: sgd
+batch_size: 64
+head_layer: 2
+variant: 3way
+workers: 8
+pretrained: True
