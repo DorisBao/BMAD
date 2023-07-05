@@ -114,15 +114,15 @@ def get_networks(config, load_checkpoint=False):
 
     if load_checkpoint:
         last_checkpoint = config['last_checkpoint']
-        checkpoint_path = "./outputs/{}/checkpoints/".format(dataset_name)
-        print(f'{checkpoint_path}Cloner_0_2.pth')
+        checkpoint_path = "MKD/outputs/{}/checkpoints/".format(dataset_name)
+        print(f'{checkpoint_path}Cloner.pth')
         model.load_state_dict(
-            torch.load('{}Cloner_0_2.pth'.format(checkpoint_path)))
+            torch.load('{}Cloner.pth'.format(checkpoint_path)))
         if not pretrain:
             vgg.load_state_dict(
                 torch.load('{}Source_{}_random_vgg.pth'.format(checkpoint_path, normal_class)))
     elif not pretrain:
-        checkpoint_path = "./outputs/{}/checkpoints/".format(dataset_name)
+        checkpoint_path = "MKD/outputs/{}/checkpoints/".format(dataset_name)
         Path(checkpoint_path).mkdir(parents=True, exist_ok=True)
 
         torch.save(vgg.state_dict(), '{}Source_{}_random_vgg.pth'.format(checkpoint_path, normal_class))

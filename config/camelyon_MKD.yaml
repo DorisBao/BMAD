@@ -1,0 +1,28 @@
+# Data parameters
+dataset_name: camelyon # [RESC, OCT2017, camelyon, bras2021, liver, chest]
+last_checkpoint: 200
+
+
+# Training parameters
+num_epochs: 200 # 
+batch_size: 64
+learning_rate: 1e-3
+
+normal_class: 0 
+ground_truth: True
+lamda: 0.01 # mvtec:0.5, Others:0.01
+
+
+pretrain: True # True:use pre-trained vgg as source network --- False:use random initialize
+use_bias: False # True:using bias term in neural network layer
+equal_network_size: False # True:using equal network size for cloner and source network --- False:smaller network for cloner
+direction_loss_only: False
+continue_train: False
+
+
+# Test parameters
+localization_test: True # True:For Localization Test --- False:For Detection
+localization_method: 'gbp' # gradients , smooth_grad , gbp
+
+
+

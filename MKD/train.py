@@ -12,6 +12,7 @@ parser.add_argument('--config', type=str, default='configs/config.yaml', help="t
 
 
 def train(config):
+    print(config)
     direction_loss_only = config["direction_loss_only"]
     normal_class = config["normal_class"]
     learning_rate = float(config['learning_rate'])
@@ -20,7 +21,7 @@ def train(config):
     continue_train = config['continue_train']
     last_checkpoint = config['last_checkpoint']
 
-    checkpoint_path = "./outputs/{}/checkpoints/".format(config['dataset_name'])
+    checkpoint_path = "MKD/outputs/{}/checkpoints/".format(config['dataset_name'])
 
     # create directory
     Path(checkpoint_path).mkdir(parents=True, exist_ok=True)
@@ -82,7 +83,7 @@ def train(config):
 
         if epoch % 200 == 0:
             torch.save(model.state_dict(),
-                       '{}Cloner_{}_epoch_{}_2.pth'.format(checkpoint_path, normal_class, epoch))
+                       '{}Cloner.pth'.format(checkpoint_path))
 
 
 def main():
