@@ -1,0 +1,16 @@
+lr: 0.0001
+n_epochs: 300
+lr_milestone: 50
+batch_size: 200
+weight_decay: 0.5e-7
+ae_lr: 0.00001
+ae_n_epochs: 300
+ae_lr_milestone: 250
+ae_batch_size: 200
+ae_weight_decay: 0.5e-6
+seed: 1225
+nu: 0.1
+pretrain: True
+objective: one-class
+optimizer_name: adam
+ae_optimizer_name: adam
