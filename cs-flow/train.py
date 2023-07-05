@@ -2,7 +2,7 @@ import numpy as np
 import torch
 from sklearn.metrics import roc_auc_score
 from tqdm import tqdm
-import config as c
+# import config as c
 from scipy.ndimage.filters import gaussian_filter
 from model import get_cs_flow_model, save_model, FeatureExtractor, nf_forward
 from utils import *
@@ -15,26 +15,33 @@ from statistics import mean
 from sklearn.metrics import auc
 import sklearn.metrics as metrics
 
-def train(train_loader, valid_loader, test_loader):
+norm_mean, norm_std = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
+
+def train(train_loader, valid_loader, test_loader, config):
+    # img_dims = [3] + list((config['img_size'],config['img_size']))
+    # n_feat = {"effnetB5": 304}[config['extractor']]  # dependend from feature extractor
+    # map_size = (config['img_size'][0] // 32, config['img_size'] // 32)
+    # kernel_sizes = [3] * (config['n_coupling_blocks'] - 1) + [5]
+    
     model = get_cs_flow_model()
-    optimizer = torch.optim.Adam(model.parameters(), lr=c.lr_init, eps=1e-04, weight_decay=1e-5)
-    model.to(c.device)
-    c.pre_extracted = False
-    if not c.pre_extracted:
+    optimizer = torch.optim.Adam(model.parameters(), lr=config['lr_init'], eps=1e-04, weight_decay=1e-5)
+    model.to(config['device'])
+    config['pre_extracted'] = False
+    if not config['pre_extracted']:
         fe = FeatureExtractor()
         fe.eval()
-        fe.to(c.device)
+        fe.to(config['device'])
         for param in fe.parameters():
             param.requires_grad = False
 
     z_obs = Score_Observer('AUROC')
 
-    for epoch in range(c.meta_epochs):
+    for epoch in range(config['meta_epochs']):
         # train some epochs
         model.train()
-        if c.verbose:
+        if config['verbose']:
             print(F'\nTrain epoch {epoch}')
-        for sub_epoch in range(c.sub_epochs):
+        for sub_epoch in range(config['sub_epochs']):
             train_loss = list()
             # for i, data in enumerate(tqdm(train_loader, disable=c.hide_tqdm_bar)):
             for i, sample in enumerate(train_loader):
@@ -42,7 +49,7 @@ def train(train_loader, valid_loader, test_loader):
                 optimizer.zero_grad()
 
                 inputs = data.cuda()  # move to device and reshape
-                if not c.pre_extracted:
+                if not config['pre_extracted']:
                     inputs = fe(inputs)
 
                 z, jac = nf_forward(model, inputs)
@@ -51,16 +58,16 @@ def train(train_loader, valid_loader, test_loader):
                 train_loss.append(t2np(loss))
 
                 loss.backward()
-                norm = torch.nn.utils.clip_grad_norm_(model.parameters(), c.max_grad_norm)
+                norm = torch.nn.utils.clip_grad_norm_(model.parameters(), config['max_grad_norm'])
                 optimizer.step()
 
             mean_train_loss = np.mean(train_loss)
-            if c.verbose and epoch == 0 and sub_epoch % 4 == 0:
+            if config['verbose'] and epoch == 0 and sub_epoch % 4 == 0:
                 print('Epoch: {:d}.{:d} \t train loss: {:.4f}'.format(epoch, sub_epoch, mean_train_loss))
         
         # evaluate
         model.eval()
-        if c.verbose:
+        if config['verbose']:
             print('\nCompute loss and scores on test set:')
         test_loss = list()
         test_z = list()
@@ -75,7 +82,7 @@ def train(train_loader, valid_loader, test_loader):
             for i, sample in enumerate(valid_loader):
                 #data = sample['image']
                 inputs, labels = preprocess_batch(sample)
-                if not c.pre_extracted:
+                if not config['pre_extracted']:
                     inputs = fe(inputs)
 
                 z, jac = nf_forward(model, inputs)
@@ -109,7 +116,7 @@ def train(train_loader, valid_loader, test_loader):
                 #     aupro_list.append(compute_pro(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
 
         test_loss = np.mean(np.array(test_loss))
-        if c.verbose:
+        if config['verbose']:
             print('Epoch: {:d} \t test_loss: {:.4f}'.format(epoch, test_loss))
 
         test_labels = np.concatenate(test_labels)
@@ -117,7 +124,7 @@ def train(train_loader, valid_loader, test_loader):
 
         anomaly_score = np.concatenate(test_z, axis=0)
         z_obs.update(roc_auc_score(is_anomaly, anomaly_score), epoch,
-                     print_score=c.verbose or epoch == c.meta_epochs - 1)
+                     print_score=config['verbose'] or epoch == config['meta_epochs'] - 1)
 
         # auroc_px = round(metrics.roc_auc_score(gt_list_px, pr_list_px), 5)
         # aupro_px = round(np.mean(aupro_list), 5)
@@ -126,7 +133,7 @@ def train(train_loader, valid_loader, test_loader):
 
         # evaluate
         model.eval()
-        if c.verbose:
+        if config['verbose']:
             print('\nCompute loss and scores on test set:')
         import time
         t1=time.time()
@@ -143,7 +150,7 @@ def train(train_loader, valid_loader, test_loader):
             for i, sample in enumerate(test_loader):
                 #data = sample['image']
                 inputs, labels = preprocess_batch(sample)
-                if not c.pre_extracted:
+                if not config['pre_extracted']:
                     inputs = fe(inputs)
 
                 z, jac = nf_forward(model, inputs)
@@ -177,7 +184,7 @@ def train(train_loader, valid_loader, test_loader):
                 #     aupro_list.append(compute_pro(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
 
         test_loss = np.mean(np.array(test_loss))
-        if c.verbose:
+        if config['verbose']:
             print('Epoch: {:d} \t test_loss: {:.4f}'.format(epoch, test_loss))
 
         test_labels = np.concatenate(test_labels)
@@ -185,7 +192,7 @@ def train(train_loader, valid_loader, test_loader):
 
         anomaly_score = np.concatenate(test_z, axis=0)
         z_obs.update(roc_auc_score(is_anomaly, anomaly_score), epoch,
-                     print_score=c.verbose or epoch == c.meta_epochs - 1)
+                     print_score=config['verbose'] or epoch == config['meta_epochs'] - 1)
         t2=time.time()
         print(t2-t1, len(test_loader), len(test_loader)/(t2-t1))
         # auroc_px = round(metrics.roc_auc_score(gt_list_px, pr_list_px), 5)
@@ -193,9 +200,9 @@ def train(train_loader, valid_loader, test_loader):
         # print('auroc_px: ', auroc_px, ',', 'aupro_px', aupro_px)
         # print("dice_px: ", (round(np.mean(dice_list), 5)))
 
-    if c.save_model:
+    if config['save_model']:
         model.to('cpu')
-        save_model(model, c.modelname)
+        save_model(model, config['modelname'])
 
     return z_obs.max_score, z_obs.last, z_obs.min_loss_score
 

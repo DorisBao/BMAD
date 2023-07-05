@@ -7,8 +7,8 @@ from efficientnet_pytorch import EfficientNet
 import config as c
 from freia_funcs import *
 
-WEIGHT_DIR = './weights'
-MODEL_DIR = './models/tmp'
+WEIGHT_DIR = 'cs-flow/weights'
+MODEL_DIR = 'cs-flow/models/tmp'
 
 
 def get_cs_flow_model(input_dim=c.n_feat):
@@ -73,5 +73,6 @@ def save_model(model, filename):
 
 def load_model(filename):
     path = os.path.join(MODEL_DIR, filename)
+    print(f"Loading {path}...")
     model = torch.load(path)
     return model

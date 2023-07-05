@@ -11,7 +11,15 @@ import PIL
 from os.path import join
 import os
 from copy import deepcopy
-
+import argparse
+import yaml
+from model import get_cs_flow_model, save_model, FeatureExtractor, nf_forward
+from data import TrainDataset, ValidDataset, TestDataset, get_train_transforms, get_valid_transforms
+from skimage import measure
+import pandas as pd
+from statistics import mean
+from sklearn.metrics import auc
+import sklearn.metrics as metrics
 
 localize = True
 upscale_mode = 'bilinear'
@@ -198,8 +206,162 @@ def evaluate(model, test_loader):
 
     return
 
-train_set, test_set = load_datasets(c.dataset_path, c.class_name)
-img_paths = test_set.paths if c.pre_extracted else [p for p, l in test_set.samples]
-_, test_loader = make_dataloaders(train_set, test_set)
-mod = load_model(c.modelname)
-evaluate(mod, test_loader)
+parser = argparse.ArgumentParser(description='Training defect detection as described in the CutPaste Paper.')
+parser.add_argument('--data', default="camelyon",
+                    help='MVTec defection dataset type to train seperated by , (default: "all": train all defect types)')
+
+args = parser.parse_args()
+
+config_path = f"config/{args.data}_csflow.yaml"
+print(f"reading config {config_path}...")
+with open(config_path, 'r') as file:
+    config = yaml.safe_load(file)
+print(config)
+
+train_dataset = TrainDataset(data=args.data, transform=get_train_transforms())
+valid_dataset = ValidDataset(data=args.data, transform=get_valid_transforms())
+test_dataset = TestDataset(data=args.data, transform=get_valid_transforms())
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=8)
+valid_loader = torch.utils.data.DataLoader(valid_dataset, batch_size=1, num_workers=8)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, num_workers=8)
+
+
+model = load_model(config['modelname'])
+model.to(config['device'])
+config['pre_extracted'] = False
+if not config['pre_extracted']:
+    fe = FeatureExtractor()
+    fe.eval()
+    fe.to(config['device'])
+    for param in fe.parameters():
+        param.requires_grad = False
+# evaluate
+model.eval()
+test_loss = list()
+test_z = list()
+test_labels = list()
+dice_list = []
+aupro_list = []
+gt_list_px = []
+pr_list_px = []
+
+with torch.no_grad():
+    #for i, data in enumerate(tqdm(test_loader, disable=c.hide_tqdm_bar)):
+    for i, sample in enumerate(valid_loader):
+        #data = sample['image']
+        inputs, labels = preprocess_batch(sample)
+        if not config['pre_extracted']:
+            inputs = fe(inputs.cuda())
+
+        z, jac = nf_forward(model, inputs)
+        loss = get_loss(z, jac)
+
+        z_concat = t2np(concat_maps(z))
+        score = np.mean(z_concat ** 2 / 2, axis=(1, 2))
+        test_z.append(score)
+        test_loss.append(t2np(loss))
+        test_labels.append(t2np(labels))
+
+        # z_grouped = list()
+        # likelihood_grouped = list()
+        # for i in range(len(z)):
+        #     z_grouped.append(z[i].view(-1, *z[i].shape[1:]))
+        #     likelihood_grouped.append(torch.mean(z_grouped[-1] ** 2, dim=(1,)))
+        # map = likelihood_grouped[0][0]
+        # # print(map.unsqueeze(dim=0).unsqueeze(dim=0).shape)
+        # # print(sample['image'].shape[2:])
+        # map_to_viz = t2np(F.interpolate(map.unsqueeze(dim=0).unsqueeze(dim=0), size=sample['image'].shape[2:], mode='bilinear', align_corners=False))[0][0]
+        # map_to_viz = (map_to_viz - min(map_to_viz.flatten())) / (
+        # max(map_to_viz.flatten()) - min(map_to_viz.flatten()))
+        # map = gaussian_filter(map_to_viz, sigma=4)
+        # gt_list_px.extend(sample['mask'].cpu().numpy().astype(int).ravel())
+        # #print(mask.cpu().numpy().astype(int).ravel().shape)
+        # pr_list_px.extend(map.ravel())
+
+        # if sample['label'].item()!=0:
+        #     mask = sample['mask']
+        #     dice_list.append(compute_dice(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
+        #     aupro_list.append(compute_pro(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
+
+test_loss = np.mean(np.array(test_loss))
+
+test_labels = np.concatenate(test_labels)
+is_anomaly = np.array([0 if l == 0 else 1 for l in test_labels])
+
+anomaly_score = np.concatenate(test_z, axis=0)
+print(roc_auc_score(is_anomaly, anomaly_score))
+# z_obs.update(roc_auc_score(is_anomaly, anomaly_score), epoch,
+#                 print_score=c.verbose or epoch == c.meta_epochs - 1)
+
+# auroc_px = round(metrics.roc_auc_score(gt_list_px, pr_list_px), 5)
+# aupro_px = round(np.mean(aupro_list), 5)
+# print('auroc_px: ', auroc_px, ',', 'aupro_px', aupro_px)
+# print("dice_px: ", (round(np.mean(dice_list), 5)))
+
+# evaluate
+model.eval()
+import time
+t1=time.time()
+test_loss = list()
+test_z = list()
+test_labels = list()
+dice_list = []
+aupro_list = []
+gt_list_px = []
+pr_list_px = []
+
+with torch.no_grad():
+    #for i, data in enumerate(tqdm(test_loader, disable=c.hide_tqdm_bar)):
+    for i, sample in enumerate(test_loader):
+        #data = sample['image']
+        inputs, labels = preprocess_batch(sample)
+        if not config['pre_extracted']:
+            inputs = fe(inputs.cuda())
+
+        z, jac = nf_forward(model, inputs)
+        loss = get_loss(z, jac)
+
+        z_concat = t2np(concat_maps(z))
+        score = np.mean(z_concat ** 2 / 2, axis=(1, 2))
+        test_z.append(score)
+        test_loss.append(t2np(loss))
+        test_labels.append(t2np(labels))
+
+        # z_grouped = list()
+        # likelihood_grouped = list()
+        # for i in range(len(z)):
+        #     z_grouped.append(z[i].view(-1, *z[i].shape[1:]))
+        #     likelihood_grouped.append(torch.mean(z_grouped[-1] ** 2, dim=(1,)))
+        # map = likelihood_grouped[0][0]
+        # print(map.unsqueeze(dim=0).unsqueeze(dim=0).shape)
+        # print(sample['image'].shape[2:])
+        # map_to_viz = t2np(F.interpolate(map.unsqueeze(dim=0).unsqueeze(dim=0), size=sample['image'].shape[2:], mode='bilinear', align_corners=False))[0][0]
+        # map_to_viz = (map_to_viz - min(map_to_viz.flatten())) / (
+        # max(map_to_viz.flatten()) - min(map_to_viz.flatten()))
+        # map = gaussian_filter(map_to_viz, sigma=4)
+        # gt_list_px.extend(sample['mask'].cpu().numpy().astype(int).ravel())
+        #print(mask.cpu().numpy().astype(int).ravel().shape)
+        # pr_list_px.extend(map.ravel())
+
+        # if sample['label'].item()!=0:
+        #     mask = sample['mask']
+        #     dice_list.append(compute_dice(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
+        #     aupro_list.append(compute_pro(mask.cpu().numpy().astype(int)[0], map.reshape(sample['image'].shape[0],256,256)))
+
+test_loss = np.mean(np.array(test_loss))
+# if c.verbose:
+#     print('Epoch: {:d} \t test_loss: {:.4f}'.format(epoch, test_loss))
+
+test_labels = np.concatenate(test_labels)
+is_anomaly = np.array([0 if l == 0 else 1 for l in test_labels])
+
+anomaly_score = np.concatenate(test_z, axis=0)
+print(roc_auc_score(is_anomaly, anomaly_score))
+# z_obs.update(roc_auc_score(is_anomaly, anomaly_score), epoch,
+#                 print_score=config['verbose'] or epoch == config['meta_epochs'] - 1)
+t2=time.time()
+# print(t2-t1, len(test_loader), len(test_loader)/(t2-t1))
+# auroc_px = round(metrics.roc_auc_score(gt_list_px, pr_list_px), 5)
+# aupro_px = round(np.mean(aupro_list), 5)
+# print('auroc_px: ', auroc_px, ',', 'aupro_px', aupro_px)
+# print("dice_px: ", (round(np.mean(dice_list), 5)))
