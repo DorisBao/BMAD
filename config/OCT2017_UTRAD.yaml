@@ -1,0 +1,16 @@
+exp_name: UTRAD/Exp0-r18
+epoch_start: 0
+epoch_num: 150
+factor: 1
+seed: 1225
+num_row: 4
+activation: gelu
+data_root: /home/jinan/Doris/dataset/
+batch_size: 1
+lr: 0.0001
+b1: 0.5
+b2: 0.999
+n_cpu: 12
+image_result_dir: result_images
+model_result_dir: saved_models
+validation_image_dir: validation_images

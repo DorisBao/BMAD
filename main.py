@@ -10,7 +10,7 @@ if __name__ == '__main__':
                         help='dataset information, select from ["padim", "padim_resnet50", "stfpm", "stfpm_resnet50","draem", "cfa", "cflow", "ganomaly", "RD4AD", "patchcore", "patchcore_resnet50"] ')
     parser.add_argument('--mode', default="train",
                         help='train or test')
-    parser.add_argument('--weight', default="results/padim/OCT2017_resnet50/run/weights/model.ckpt",
+    parser.add_argument('--weight', default=None,
                         help='weight file')
     args = parser.parse_args()
     
@@ -24,7 +24,9 @@ if __name__ == '__main__':
         elif model == "Deep-SVDD":
             os.system(f"python Deep-SVDD/main.py {data} cifar10_LeNet Deep-SVDD/log/{data} /home/jinan/")
         elif model == "UTRAD":
-            os.system(f"pwd")
+            os.system(f"python UTRAD/main.py --dataset_name {data}")
     elif mode == 'test':
         if model in ["padim", "padim_resnet50", "stfpm", "stfpm_resnet50","draem", "cfa", "cflow", "ganomaly", "RD4AD", "patchcore", "patchcore_resnet50"]:
             os.system(f'python anomalib/tools/test.py --model {model} --config config/{data}_{model}_test.yaml --weight_file {args.weight}')
+        elif model == "UTRAD":
+            os.system(f"python UTRAD/valid.py --dataset_name {data} --weight {args.weight}")

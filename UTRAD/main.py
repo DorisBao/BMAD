@@ -25,6 +25,8 @@ from statistics import mean
 from sklearn.metrics import auc
 import sklearn.metrics as metrics
 from skimage import measure
+import yaml
+
 def compute_dice(pred, gt):
     dice_score = []
     for i in range(pred.shape[0]):
@@ -89,22 +91,29 @@ def get_shape(lst, shapelst=()):
     return shapelst
 def main():
     args = TrainOptions().parse()
-    with open("./%s-%s/args.log" % (args.exp_name,  args.dataset_name) ,"a") as args_log:
-        for k, v in sorted(vars(args).items()):
+    config_path = f"config/{args.dataset_name}_UTRAD.yaml"
+    print(f"reading config {config_path}...")
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    print(config)
+    os.makedirs('%s-%s/%s' % (config['exp_name'], args.dataset_name, config['image_result_dir']), exist_ok=True)
+    os.makedirs('%s-%s/%s' % (config['exp_name'], args.dataset_name, config['model_result_dir']), exist_ok=True)
+    with open("./%s-%s/args.log" % (config['exp_name'],  args.dataset_name) ,"a") as args_log:
+        for k, v in sorted(config.items()):
             print('%s: %s ' % (str(k), str(v)))
             args_log.write('%s: %s \n' % (str(k), str(v)))
-    torch.manual_seed(args.seed)
-    np.random.seed(args.seed)
-    torch.cuda.manual_seed(args.seed)
+    torch.manual_seed(config['seed'])
+    np.random.seed(config['seed'])
+    torch.cuda.manual_seed(config['seed'])
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    save_dir = '%s-%s/%s/%s' % (args.exp_name, args.dataset_name, args.model_result_dir, 'checkpoint.pth')
+    save_dir = '%s-%s/%s/%s' % (config['exp_name'], args.dataset_name, config['model_result_dir'], 'checkpoint.pth')
     start_epoch = 0
     transformer = Create_nets(args)
     transformer = transformer.to(device)
     transformer.cuda()
 
-    optimizer = torch.optim.Adam( transformer.parameters(), lr=args.lr, betas=(args.b1, args.b2))
+    optimizer = torch.optim.Adam( transformer.parameters(), lr=config['lr'], betas=(config['b1'], config['b2']))
     best_loss = 1e10
 
     backbone = models.resnet18(pretrained=True).to(device)
@@ -264,7 +273,7 @@ def main():
             avg_loss_scale += loss_scale * img.size(0)
             total += img.size(0)
             print(("\r[Epoch%d/%d]-[Batch%d/%d]-[Loss:%f]-[Loss_scale:%f]" %
-                                                            (epoch+1, args.epoch_num,
+                                                            (epoch+1, config['epoch_num'],
                                                             i, len(train_dataloader),
                                                             avg_loss / total,
                                                             avg_loss_scale / total)))

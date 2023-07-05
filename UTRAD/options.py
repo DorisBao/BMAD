@@ -28,6 +28,8 @@ class TrainOptions():
         self.parser.add_argument('--image_result_dir', type=str, default='result_images', help=' where to save the result images')
         self.parser.add_argument('--model_result_dir', type=str, default='saved_models', help=' where to save the checkpoints')
         self.parser.add_argument('--validation_image_dir', type=str, default='validation_images', help=' where to save the validation image')
+
+        self.parser.add_argument('--weight', type=str, default=None)
         
 
 
@@ -36,8 +38,8 @@ class TrainOptions():
             self.initialize()
         args = self.parser.parse_args()
 
-        os.makedirs('%s-%s/%s' % (args.exp_name, args.dataset_name, args.image_result_dir), exist_ok=True)
-        os.makedirs('%s-%s/%s' % (args.exp_name, args.dataset_name, args.model_result_dir), exist_ok=True)
+        # os.makedirs('%s-%s/%s' % (args.exp_name, args.dataset_name, args.image_result_dir), exist_ok=True)
+        # os.makedirs('%s-%s/%s' % (args.exp_name, args.dataset_name, args.model_result_dir), exist_ok=True)
 
         self.args = args
         return self.args

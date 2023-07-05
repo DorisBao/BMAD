@@ -27,6 +27,8 @@ from sklearn.metrics import auc
 from skimage import measure
 from scipy.ndimage.filters import gaussian_filter
 from data import TrainDataset, ValidDataset, get_train_transforms, get_valid_transforms, TestDataset
+import yaml
+
 def min_max_norm(image):
     a_min, a_max = image.min(), image.max()
     return (image-a_min)/(a_max - a_min)
@@ -102,9 +104,19 @@ def main():
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     args = TrainOptions().parse()
-    torch.manual_seed(args.seed)
-    save_dir = '%s-%s/%s/%s' % (args.exp_name, args.dataset_name, args.model_result_dir, 'checkpoint.pth')
-    print(save_dir)
+    config_path = f"config/{args.dataset_name}_UTRAD.yaml"
+    print(f"reading config {config_path}...")
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+    print(config)
+    torch.manual_seed(config['seed'])
+    if args.weight == "None" or args.weight == None:
+        save_dir = '%s-%s/%s/%s' % (config['exp_name'], args.dataset_name, config['model_result_dir'], 'checkpoint.pth')
+    else:
+        save_dir = args.weight
+    
+    print(f"Loading ckpt {save_dir}...")
+    
     start_epoch = 0
     transformer = Create_nets(args)
     transformer = transformer.to(device)
@@ -155,7 +167,7 @@ def main():
         return z
 
 
-    img_save_dir='%s-%s/%s' % (args.exp_name, args.dataset_name, args.validation_image_dir)
+    img_save_dir='%s-%s/%s' % (config['exp_name'], args.dataset_name, config['validation_image_dir'])
     if not os.path.exists(img_save_dir):
         os.mkdir(img_save_dir)
     score_map = []
@@ -241,7 +253,7 @@ def main():
     # print("dice_px: ", (round(np.mean(dice_list), 5)))
 
 
-    img_save_dir='%s-%s/%s' % (args.exp_name, args.dataset_name, args.validation_image_dir)
+    img_save_dir='%s-%s/%s' % (config['exp_name'], args.dataset_name, config['validation_image_dir'])
     if not os.path.exists(img_save_dir):
         os.mkdir(img_save_dir)
     score_map = []
