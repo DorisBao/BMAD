@@ -8,9 +8,9 @@ import pandas as pd
 from sklearn.metrics import roc_curve, precision_recall_curve, auc
 def test_anomaly_detection(opt, generator, discriminator, encoder,
                            dataloader, device, kappa=1.0):
-    generator.load_state_dict(torch.load("results/generator_camelyon.pth"))
-    discriminator.load_state_dict(torch.load("results/discriminator_camelyon.pth"))
-    encoder.load_state_dict(torch.load("results/encoder_camelyon.pth"))
+    generator.load_state_dict(torch.load(f"f-AnoGAN/your_own_dataset/results/generator_{opt.data}.pth"))
+    discriminator.load_state_dict(torch.load(f"f-AnoGAN/your_own_dataset/results/discriminator_{opt.data}.pth"))
+    encoder.load_state_dict(torch.load(f"f-AnoGAN/your_own_dataset/results/encoder_{opt.data}.pth"))
 
     generator.to(device).eval()
     discriminator.to(device).eval()

@@ -14,8 +14,8 @@ Licensed under MIT
 
 def train_encoder_izif(opt, generator, discriminator, encoder,
                        dataloader, device, kappa=1.0):
-    generator.load_state_dict(torch.load("results/generator_camelyon.pth"))
-    discriminator.load_state_dict(torch.load("results/discriminator_camelyon.pth"))
+    generator.load_state_dict(torch.load(f"f-AnoGAN/your_own_dataset/results/generator_{opt.data}.pth"))
+    discriminator.load_state_dict(torch.load(f"f-AnoGAN/your_own_dataset/results/discriminator_{opt.data}.pth"))
 
     generator.to(device).eval()
     discriminator.to(device).eval()
@@ -77,4 +77,4 @@ def train_encoder_izif(opt, generator, discriminator, encoder,
                     #            nrow=5, normalize=True)
 
                 batches_done += opt.n_critic
-    torch.save(encoder.state_dict(), "results/encoder_camelyon.pth")
+    torch.save(encoder.state_dict(), f"f-AnoGAN/your_own_dataset/results/encoder_{opt.data}.pth")

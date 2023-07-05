@@ -111,5 +111,5 @@ def train_wgangp(opt, generator, discriminator,
 
                 batches_done += opt.n_critic
 
-    torch.save(generator.state_dict(), "results/generator_camelyon.pth")
-    torch.save(discriminator.state_dict(), "results/discriminator_camelyon.pth")
+    torch.save(generator.state_dict(), f"f-AnoGAN/your_own_dataset/results/generator_{opt.data}.pth")
+    torch.save(discriminator.state_dict(), f"f-AnoGAN/your_own_dataset/results/discriminator_{opt.data}.pth")

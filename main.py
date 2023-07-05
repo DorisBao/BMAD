@@ -31,6 +31,10 @@ if __name__ == '__main__':
             os.system(f"python pytorch-cutpaste/run_training.py --type {data}")
         elif model == "csflow":
             os.system(f"python cs-flow/main.py --data {data}")
+        elif model == "fanogan":
+            os.system(f"python f-AnoGAN/your_own_dataset/train_wgangp.py --data {data}")
+            os.system(f"python f-AnoGAN/your_own_dataset/train_encoder_izif.py --data {data}")
+            os.system(f"python f-AnoGAN/your_own_dataset/test_anomaly_detection.py --data {data}")
         else:
             print(f'ERROR, you input a wrong model {model}, please select from ["padim", "padim_resnet50", "stfpm", "stfpm_resnet50", "draem", "cfa", "cflow", "ganomaly", "RD4AD", "patchcore", "patchcore_resnet50"]')
     
@@ -45,5 +49,7 @@ if __name__ == '__main__':
             os.system(f"python pytorch-cutpaste/eval.py --type {data} --weight {args.weight}")
         elif model == "csflow":
             os.system(f"python cs-flow/evaluate.py --data {data}")
+        elif model == "fanogan":
+            os.system(f"python f-AnoGAN/your_own_dataset/test_anomaly_detection.py --data {data}")
         else:
             print(f'ERROR, you input a wrong model {model}, please select from ["padim", "padim_resnet50", "stfpm", "stfpm_resnet50", "draem", "cfa", "cflow", "ganomaly", "RD4AD", "patchcore", "patchcore_resnet50"]')
