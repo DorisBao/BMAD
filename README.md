@@ -92,7 +92,7 @@ Brain
 ### Our codebase
 We support 14 algorithms in our BMAD and the results are shown in Table 2. Our trained checkpoints can be downloaded from [Google drive](https://drive.google.com/drive/folders/105s6IzMO-Y5P_a_YkQ_dzL0YgbmGPhd8?usp=sharing) 
 
-![](imgs/table3.png)
+![](imgs/new-table.JPG)
 
 #### Train
 You can train the model by running `main.py` with args. For example, if you want to train a RD4AD model on RESC dataset, you can run the following command:
